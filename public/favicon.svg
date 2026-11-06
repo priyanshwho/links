@@ -1,53 +1,52 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
-  <!-- Rounded Squircle Background with Gradient -->
   <defs>
-    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#1e3a8a" />
-      <stop offset="50%" stop-color="#1d4ed8" />
-      <stop offset="100%" stop-color="#2563eb" />
-    </linearGradient>
-    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#60a5fa" />
-      <stop offset="100%" stop-color="#93c5fd" />
-    </linearGradient>
-    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.3"/>
+    <radialGradient id="bg" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#1c0507" />
+      <stop offset="50%" stop-color="#0e0304" />
+      <stop offset="100%" stop-color="#040102" />
+    </radialGradient>
+    <filter id="bloodGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2.8" result="blur" />
+      <feColorMatrix type="matrix" values="
+        1 0 0 0 0.8
+        0 0 0 0 0
+        0 0 0 0 0.1
+        0 0 0 1 0" in="blur" result="crimsonGlow" />
+      <feMerge>
+        <feMergeNode in="crimsonGlow" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
     </filter>
   </defs>
 
-  <!-- Base Badge -->
-  <rect width="64" height="64" rx="16" fill="url(#bgGradient)" />
+  <!-- Deep Obsidian Squircle with Crimson Accent Border -->
+  <rect width="64" height="64" rx="16" fill="url(#bg)" />
+  <rect x="1" y="1" width="62" height="62" rx="15" stroke="#991b1b" stroke-opacity="0.35" stroke-width="1.5" />
 
-  <!-- Subtle Inner Border Highlight -->
-  <rect x="1.5" y="1.5" width="61" height="61" rx="14.5" stroke="#93c5fd" stroke-opacity="0.3" stroke-width="1.5" />
+  <!-- Berserk Brand of Sacrifice - Deep Crimson Aura -->
+  <g filter="url(#bloodGlow)" stroke="#e11d48" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Top Spine -->
+    <line x1="32" y1="7" x2="32" y2="22" />
 
-  <!-- Modern Stylized "P" & "A" Linked Emblem with Connectivity Nodes -->
-  <g filter="url(#glow)">
-    <!-- Interlocking Link Chain / Node Architecture -->
-    <!-- Left Loop (P) -->
-    <path
-      d="M19 44V20H29C33.418 20 37 23.582 37 28C37 32.418 33.418 36 29 36H19"
-      stroke="#ffffff"
-      stroke-width="5"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-    <!-- Right Link Element / Connected Arrow (A & Link) -->
-    <path
-      d="M33 44L41 26L49 44"
-      stroke="url(#accentGrad)"
-      stroke-width="4.5"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
-    <path
-      d="M36 38H46"
-      stroke="url(#accentGrad)"
-      stroke-width="3.5"
-      stroke-linecap="round"
-    />
+    <!-- Upper Diamond Roof -->
+    <path d="M22 32 L32 22 L42 32" />
 
-    <!-- Glowing Node in top right (Active Signal) -->
-    <circle cx="49" cy="18" r="3.5" fill="#38bdf8" />
+    <!-- Left Horn & Cross Stroke -->
+    <path d="M17 26 L17 21 L22 32 L32 42 L48 57" />
+
+    <!-- Right Horn & Cross Stroke -->
+    <path d="M47 26 L47 21 L42 32 L32 42 L16 57" />
+
+    <!-- Bottom Spine -->
+    <line x1="32" y1="42" x2="32" y2="57" />
+  </g>
+
+  <!-- Incandescent Fiery Core -->
+  <g stroke="#fecdd3" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.95">
+    <line x1="32" y1="8" x2="32" y2="22" />
+    <path d="M22 32 L32 22 L42 32" />
+    <path d="M17 25 L17 21 L22 32 L32 42 L48 57" />
+    <path d="M47 25 L47 21 L42 32 L32 42 L16 57" />
+    <line x1="32" y1="42" x2="32" y2="56" />
   </g>
 </svg>
