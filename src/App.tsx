@@ -73,6 +73,10 @@ function App() {
     setTimeout(() => setCopiedLink(null), 2000)
   }
 
+  const handleCardNavigate = (url: string) => {
+    window.open(url, '_blank', 'noopener,noreferrer')
+  }
+
   const handleCopyAll = () => {
     const allLinksText = `Priyanshu Anand - Portfolio & Project Links
 Software Engineer | Full-Stack & AI-Powered Applications
@@ -171,19 +175,22 @@ Professional Profiles:
               onClick={handleCopyAll}
               className="action-btn"
               title="Copy all links formatted to clipboard"
+              type="button"
             >
               {copiedAll ? <Check size={15} /> : <Copy size={15} />}
-              <span>{copiedAll ? 'Copied All Links!' : 'Copy All Links'}</span>
+              <span>{copiedAll ? 'Copied!' : 'Copy All'}</span>
             </button>
 
             <a
               href="/Priyanshu Anand - Portfolio & Project Links.pdf"
               download="Priyanshu Anand - Portfolio & Project Links.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="action-btn primary"
-              title="Download original PDF document"
+              title="Download or view original PDF document"
             >
               <Download size={15} />
-              <span>Download PDF</span>
+              <span>PDF</span>
             </a>
 
             <button
@@ -191,6 +198,7 @@ Professional Profiles:
               className="action-btn icon-only"
               title="Print / Save as PDF"
               aria-label="Print document"
+              type="button"
             >
               <Printer size={16} />
             </button>
@@ -200,6 +208,7 @@ Professional Profiles:
               className="action-btn icon-only"
               title={isDarkMode ? 'Switch to Paper Mode' : 'Switch to Dark Mode'}
               aria-label="Toggle theme"
+              type="button"
             >
               {isDarkMode ? <Sun size={16} /> : <Moon size={16} />}
             </button>
@@ -224,11 +233,17 @@ Professional Profiles:
             <h2 className="section-title">PORTFOLIO WEBSITE</h2>
           </div>
 
-          <a
-            href="https://priyanshu.cv/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="portfolio-hero-card"
+          <div
+            className="portfolio-hero-card clickable-card"
+            onClick={() => handleCardNavigate('https://priyanshu.cv/')}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                handleCardNavigate('https://priyanshu.cv/')
+              }
+            }}
           >
             <div className="portfolio-card-left">
               <div className="accent-bar" />
@@ -242,21 +257,27 @@ Professional Profiles:
               </div>
             </div>
 
-            <div className="link-cluster">
-              <span className="link-badge primary-badge">
+            <div className="link-cluster" onClick={(e) => e.stopPropagation()}>
+              <a
+                href="https://priyanshu.cv/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-badge primary-badge"
+              >
                 <span className="link-text">priyanshu.cv</span>
                 <ExternalLink size={14} className="external-arrow" />
-              </span>
+              </a>
               <button
                 type="button"
                 className="copy-chip no-print"
                 onClick={(e) => handleCopy('https://priyanshu.cv/', 'portfolio', e)}
                 title="Copy link"
+                aria-label="Copy portfolio link"
               >
                 {copiedLink === 'portfolio' ? <Check size={13} /> : <Copy size={13} />}
               </button>
             </div>
-          </a>
+          </div>
         </section>
 
         {/* Section: Selected Projects */}
@@ -267,12 +288,18 @@ Professional Profiles:
 
           <div className="projects-grid">
             {projects.map((project, index) => (
-              <a
+              <div
                 key={project.title}
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="project-card"
+                className="project-card clickable-card"
+                onClick={() => handleCardNavigate(project.url)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    handleCardNavigate(project.url)
+                  }
+                }}
               >
                 <div className="project-card-header">
                   <div className="project-title-group">
@@ -282,16 +309,22 @@ Professional Profiles:
                     )}
                   </div>
 
-                  <div className="link-cluster">
-                    <span className="link-badge">
+                  <div className="link-cluster" onClick={(e) => e.stopPropagation()}>
+                    <a
+                      href={project.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="link-badge"
+                    >
                       <span className="link-text">{project.displayUrl}</span>
                       <ExternalLink size={13} className="external-arrow" />
-                    </span>
+                    </a>
                     <button
                       type="button"
                       className="copy-chip no-print"
                       onClick={(e) => handleCopy(project.url, `proj-${index}`, e)}
                       title="Copy link"
+                      aria-label={`Copy link for ${project.title}`}
                     >
                       {copiedLink === `proj-${index}` ? <Check size={13} /> : <Copy size={13} />}
                     </button>
@@ -299,7 +332,7 @@ Professional Profiles:
                 </div>
 
                 <p className="project-desc">{project.description}</p>
-              </a>
+              </div>
             ))}
           </div>
         </section>
@@ -312,31 +345,45 @@ Professional Profiles:
 
           <div className="professional-grid">
             {professionalLinks.map((item, index) => (
-              <a
+              <div
                 key={item.label}
-                href={item.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="professional-card"
+                className="professional-card clickable-card"
+                onClick={() => handleCardNavigate(item.url)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    handleCardNavigate(item.url)
+                  }
+                }}
               >
                 <div className="prof-card-top">
                   <span className="prof-label">{item.label}</span>
                   <div className="prof-icon no-print">{item.icon}</div>
                 </div>
 
-                <div className="prof-link-row">
-                  <span className="prof-link-text">{item.displayUrl}</span>
-                  <ExternalLink size={14} className="external-arrow" />
+                <div className="prof-link-row" onClick={(e) => e.stopPropagation()}>
+                  <a
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="prof-link-anchor"
+                  >
+                    <span className="prof-link-text">{item.displayUrl}</span>
+                    <ExternalLink size={14} className="external-arrow" />
+                  </a>
                   <button
                     type="button"
                     className="copy-chip no-print"
                     onClick={(e) => handleCopy(item.url, `prof-${index}`, e)}
-                    title="Copy link"
+                    title={`Copy ${item.label} link`}
+                    aria-label={`Copy ${item.label} link`}
                   >
                     {copiedLink === `prof-${index}` ? <Check size={12} /> : <Copy size={12} />}
                   </button>
                 </div>
-              </a>
+              </div>
             ))}
           </div>
         </section>

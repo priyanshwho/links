@@ -85,6 +85,8 @@
   padding: 24px 16px 48px;
   box-sizing: border-box;
   transition: background-color 0.2s ease, color 0.2s ease;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Action Bar / Header Toolbar */
@@ -140,7 +142,8 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 12px;
+  padding: 7px 12px;
+  min-height: 34px;
   font-size: 13px;
   font-weight: 500;
   border-radius: 7px;
@@ -150,12 +153,17 @@
   cursor: pointer;
   text-decoration: none;
   transition: all 0.15s ease;
+  user-select: none;
 }
 
 .action-btn:hover {
   background: var(--card-hover-bg);
   border-color: var(--card-hover-border);
   transform: translateY(-1px);
+}
+
+.action-btn:active {
+  transform: translateY(0);
 }
 
 .action-btn.primary {
@@ -170,7 +178,7 @@
 }
 
 .action-btn.icon-only {
-  padding: 6px 9px;
+  padding: 7px 10px;
 }
 
 /* Document Paper / Sheet */
@@ -250,6 +258,23 @@
   margin: 0;
 }
 
+/* Clickable Card Generic */
+.clickable-card {
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: rgba(37, 99, 235, 0.1);
+  outline: none;
+}
+
+.clickable-card:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+}
+
+.clickable-card:active {
+  transform: scale(0.995);
+}
+
 /* Portfolio Hero Card */
 .portfolio-hero-card {
   display: flex;
@@ -259,12 +284,10 @@
   background: var(--card-bg);
   border: 1px solid var(--sheet-border);
   border-radius: 8px;
-  text-decoration: none;
   color: inherit;
   box-shadow: var(--card-shadow);
   transition: all 0.2s ease;
   position: relative;
-  overflow: hidden;
 }
 
 .portfolio-hero-card:hover {
@@ -310,6 +333,8 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  position: relative;
+  z-index: 2;
 }
 
 .link-badge {
@@ -321,14 +346,16 @@
   font-weight: 500;
   color: var(--text-link);
   text-decoration: none;
-  border-bottom: 1px dashed transparent;
+  padding: 4px 6px;
+  border-radius: 4px;
   transition: all 0.15s ease;
+  cursor: pointer;
 }
 
 .link-badge:hover,
-.project-card:hover .link-badge,
-.portfolio-hero-card:hover .link-badge,
-.professional-card:hover .prof-link-text {
+.clickable-card:hover .link-badge,
+.prof-link-anchor:hover,
+.clickable-card:hover .prof-link-text {
   color: var(--text-link-hover);
   text-decoration: underline;
   text-underline-offset: 3px;
@@ -344,9 +371,7 @@
   flex-shrink: 0;
 }
 
-.project-card:hover .external-arrow,
-.portfolio-hero-card:hover .external-arrow,
-.professional-card:hover .external-arrow {
+.clickable-card:hover .external-arrow {
   transform: translate(2px, -2px);
 }
 
@@ -354,19 +379,27 @@
 .copy-chip {
   background: transparent;
   border: 1px solid transparent;
-  border-radius: 4px;
-  padding: 4px;
+  border-radius: 6px;
+  padding: 6px;
+  min-width: 28px;
+  min-height: 28px;
   color: var(--text-muted);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   transition: all 0.15s ease;
+  position: relative;
+  z-index: 3;
 }
 
 .copy-chip:hover {
   background: var(--sheet-border);
   color: var(--text-primary);
+}
+
+.copy-chip:active {
+  transform: scale(0.92);
 }
 
 /* Selected Projects */
@@ -384,9 +417,9 @@
   background: var(--card-bg);
   border: 1px solid var(--sheet-border);
   border-radius: 8px;
-  text-decoration: none;
   box-shadow: var(--card-shadow);
   transition: all 0.2s ease;
+  position: relative;
 }
 
 .project-card:hover {
@@ -446,10 +479,10 @@
   background: var(--card-bg);
   border: 1px solid var(--sheet-border);
   border-radius: 8px;
-  text-decoration: none;
   box-shadow: var(--card-shadow);
   gap: 12px;
   transition: all 0.2s ease;
+  position: relative;
 }
 
 .professional-card:hover {
@@ -482,8 +515,18 @@
 .prof-link-row {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 6px;
-  flex-wrap: wrap;
+  position: relative;
+  z-index: 2;
+}
+
+.prof-link-anchor {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  text-decoration: none;
+  padding: 3px 0;
 }
 
 .prof-link-text {
@@ -529,28 +572,34 @@
   font-weight: 500;
 }
 
-/* Responsive Breakpoints */
+/* Responsive Breakpoints for Mobile */
 @media (max-width: 768px) {
+  .page-wrapper {
+    padding: 14px 12px 36px;
+  }
+
   .document-sheet {
-    padding: 32px 20px;
-    gap: 24px;
+    padding: 28px 18px 24px;
+    gap: 22px;
     border-radius: 12px;
   }
 
   .name-title {
-    font-size: 24px;
+    font-size: 22px;
     letter-spacing: 1px;
   }
 
   .subtitle {
-    font-size: 11px;
-    letter-spacing: 0.8px;
+    font-size: 10.5px;
+    letter-spacing: 0.6px;
+    line-height: 1.4;
   }
 
   .portfolio-hero-card {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
+    padding: 14px 16px;
   }
 
   .portfolio-card-left {
@@ -559,13 +608,25 @@
 
   .portfolio-hero-card .link-cluster {
     width: 100%;
-    justify-content: flex-start;
+    justify-content: space-between;
+    padding-top: 6px;
+    border-top: 1px dashed var(--sheet-border);
+  }
+
+  .project-card {
+    padding: 14px 16px;
   }
 
   .project-card-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 8px;
+    gap: 10px;
+  }
+
+  .project-card .link-cluster {
+    width: 100%;
+    justify-content: space-between;
+    padding-top: 4px;
   }
 
   .professional-grid {
@@ -573,15 +634,28 @@
     gap: 10px;
   }
 
+  .professional-card {
+    padding: 14px 16px;
+  }
+
   .action-bar-inner {
-    flex-direction: column;
-    gap: 12px;
-    align-items: stretch;
+    flex-direction: row;
+    gap: 8px;
+    padding: 8px 12px;
   }
 
   .action-buttons {
-    justify-content: space-between;
-    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .action-btn {
+    padding: 6px 9px;
+    font-size: 12px;
+  }
+
+  .link-badge,
+  .prof-link-text {
+    font-size: 13px;
   }
 }
 
