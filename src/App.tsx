@@ -92,7 +92,7 @@ Selected Projects:
 
 Professional Profiles:
 - Resume: https://sde.priyanshu.cv/
-- GitHub: https://github.com/priyanswho
+- GitHub: https://github.com/priyanshwho
 - LinkedIn: https://linkedin.com/in/priyanswho`
 
     navigator.clipboard.writeText(allLinksText)
@@ -148,8 +148,8 @@ Professional Profiles:
     },
     {
       label: 'GITHUB',
-      url: 'https://github.com/priyanswho',
-      displayUrl: 'github.com/priyanswho',
+      url: 'https://github.com/priyanshwho',
+      displayUrl: 'github.com/priyanshwho',
       icon: <GitHubIcon size={16} />
     },
     {
@@ -182,12 +182,12 @@ Professional Profiles:
             </button>
 
             <a
-              href="/Priyanshu Anand - Portfolio & Project Links.pdf"
-              download="Priyanshu Anand - Portfolio & Project Links.pdf"
+              href="/Priyanshu_Anand_Portfolio_Links_Corrected.pdf"
+              download="Priyanshu_Anand_Portfolio_Links_Corrected.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="action-btn primary"
-              title="Download or view original PDF document"
+              title="Download or view corrected PDF document"
             >
               <Download size={15} />
               <span>PDF</span>
